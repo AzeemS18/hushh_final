@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Mock Exam - Premium Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>AI Mock Exam</h1>
+            <p>Select your path to success.</p>
+            <div style="margin-top: 2rem;">
+                <button id="show-depts-btn" class="btn active-tab">By Department</button>
+                <button id="show-companies-btn" class="btn">By Company</button>
+                <button id="show-hr-btn" class="btn">HR Interview</button>
+                <button id="show-compiler-btn" class="btn">Compiler</button>
+                <button id="show-coding-btn" class="btn">Coding Assessment</button>
+                <button id="show-ats-btn" class="btn">📄 ATS Resume</button>
+                <button id="show-scores-btn" class="btn">📊 Scorecards</button>
+            </div>
+        </header>
+
+        <section id="dept-section">
+            <div class="dept-grid" id="dept-container">
+                <!-- Dept cards will be injected here -->
+            </div>
+        </section>
+
+        <section id="company-section" class="hidden">
+            <div class="dept-grid" id="company-container">
+                <!-- Company cards will be injected here -->
+            </div>
+        </section>
+
+        <section id="hr-section" class="hidden">
+            <div class="dept-grid" id="hr-container">
+                <!-- HR cards will be injected here -->
+            </div>
+        </section>
+
+        <section id="compiler-section" class="hidden">
+            <div class="glass-card compiler-card">
+                <div class="compiler-header">
+                    <select id="language-select" class="lang-select">
+                        <option value="python">Python</option>
+                        <option value="java">Java</option>
+                    </select>
+                    <button id="run-code-btn" class="btn run-btn">Run Code</button>
+                </div>
+                <div class="editor-container">
+                    <textarea id="code-editor" class="code-editor" spellcheck="false"
+                        placeholder="Write your code here...">def main():
+    print("Hello, World!")
+
+if __name__ == "__main__":
+    main()</textarea>
+                </div>
+                <div class="terminal">
+                    <div class="terminal-header">Terminal Output</div>
+                    <pre id="terminal-output" class="output-text">Click 'Run Code' to see the output.</pre>
+                </div>
+            </div>
+        </section>
+
+        <section id="coding-section" class="hidden">
+            <div id="coding-list" class="dept-grid">
+                <!-- Coding problem cards will be injected here -->
+            </div>
+
+            <div id="coding-editor-flow" class="hidden">
+                <div class="coding-layout">
+                    <div class="problem-pane glass-card">
+                        <button id="back-to-coding-list" class="btn btn-sm" style="margin-bottom: 1rem;">← Back</button>
+                        <h2 id="coding-problem-title">Problem Title</h2>
+                        <div id="coding-problem-desc" class="problem-description"></div>
+                    </div>
+
+                    <div class="editor-pane glass-card">
+                        <div class="compiler-header">
+                            <select id="coding-lang-select" class="lang-select">
+                                <option value="python">Python</option>
+                                <option value="java">Java</option>
+                            </select>
+                            <button id="submit-code-btn" class="btn run-btn">Submit & Test</button>
+                        </div>
+                        <textarea id="coding-textarea" class="code-editor" style="height: 450px;"></textarea>
+
+                        <div id="coding-test-results" class="terminal hidden">
+                            <div class="terminal-header">Test Case Results</div>
+                            <div id="test-results-list" class="output-text"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ATS RESUME ANALYZER -->
+        <section id="ats-section" class="hidden">
+            <div class="glass-card" style="max-width:700px;margin:2rem auto;">
+                <h2 style="margin-bottom:1.5rem;">📄 ATS Resume Analyzer</h2>
+                <p style="color:#94a3b8;margin-bottom:1.5rem;">Upload your resume (PDF or TXT) and our local AI will
+                    give you an ATS compatibility score with actionable feedback — no cloud, 100% private.</p>
+                <div class="ats-upload-area" id="ats-upload-area">
+                    <span style="font-size:3rem;">📁</span>
+                    <p style="margin-top:1rem;">Drag & drop your resume here or</p>
+                    <label for="resume-file" class="btn" style="margin-top:1rem;cursor:pointer;">Choose File</label>
+                    <input type="file" id="resume-file" accept=".pdf,.txt" style="display:none;">
+                    <p id="ats-filename" style="color:#94a3b8;margin-top:0.5rem;"></p>
+                </div>
+                <button id="analyze-btn" class="btn run-btn" style="width:100%;margin-top:1.5rem;font-size:1rem;">🔍
+                    Analyze Resume</button>
+                <div id="ats-result" class="hidden" style="margin-top:2rem;">
+                    <div style="text-align:center;">
+                        <div id="ats-score-display" style="font-size:4rem;font-weight:800;"></div>
+                        <div id="ats-band" style="font-size:1.2rem;color:#94a3b8;margin-bottom:1.5rem;"></div>
+                    </div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem;">
+                        <div class="glass-card" style="padding:1rem;">
+                            <h4 style="color:#4ade80;margin-bottom:0.5rem;">✅ Strengths</h4>
+                            <ul id="ats-strengths" style="padding-left:1.2rem;color:#cbd5e1;"></ul>
+                        </div>
+                        <div class="glass-card" style="padding:1rem;">
+                            <h4 style="color:#f87171;margin-bottom:0.5rem;">⚡ Improvements</h4>
+                            <ul id="ats-improvements" style="padding-left:1.2rem;color:#cbd5e1;"></ul>
+                        </div>
+                    </div>
+                    <div class="explanation-box" id="ats-feedback-box"></div>
+                    <div style="text-align:center;margin-top:1.5rem;">
+                        <a id="ats-download-btn" href="#" class="btn" target="_blank" style="display:none;">⬇️ Download
+                            PDF Report</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCORECARD HISTORY -->
+        <section id="scores-section" class="hidden">
+            <div style="max-width:900px;margin:0 auto;">
+                <h2 style="margin-bottom:1.5rem;">📊 Scorecard History</h2>
+                <p style="color:#94a3b8;margin-bottom:2rem;">All past assessment results, stored locally.</p>
+                <div id="scorecards-list" class="dept-grid"></div>
+            </div>
+        </section>
+
+        <section id="quiz-section" class="hidden">
+            <div class="glass-card">
+                <div id="progress">Question 1 of 10</div>
+                <h2 id="question-text" style="margin: 1.5rem 0;">What is the time complexity of QuickSort?</h2>
+                <div id="options-container">
+                    <!-- Options buttons will be injected here -->
+                </div>
+                <button id="next-btn" class="btn" style="margin-top: 2rem; width: 100%;">Next Question</button>
+            </div>
+        </section>
+
+        <section id="result-section" class="hidden">
+            <div class="glass-card">
+                <h2>Your Result</h2>
+                <div id="score-display"
+                    style="font-size: 3rem; font-weight: 800; color: var(--secondary-color); margin: 1rem 0;">8/10</div>
+
+                <h3 style="margin-top: 2rem;">Wrong Questions & Explanations</h3>
+                <div id="wrong-answers-list" style="margin-top: 1rem;"></div>
+
+                <h3 style="margin-top: 2rem;">ML Study Plan Recommendation</h3>
+                <div id="recommendations-list" class="recommendations"></div>
+
+                <button onclick="window.location.reload()" class="btn" style="margin-top: 3rem; width: 100%;">Retake
+                    Test</button>
+            </div>
+        </section>
+    </div>
+
+    <!-- ===== AI CHATBOT WIDGET ===== -->
+    <div id="chatbot-btn" title="Ask AI Assistant">
+        <span>🤖</span>
+    </div>
+
+    <div id="chatbot-panel" class="hidden">
+        <div class="chatbot-header">
+            <div class="chatbot-title">
+                <span class="chatbot-avatar">🖥️</span>
+                <div>
+                    <strong>AI Placement Assistant</strong>
+                    <small>Powered by Llama 3.2 (Local)</small>
+                </div>
+            </div>
+            <button id="chatbot-close" style="position:relative; z-index:9999; pointer-events:auto;"
+                onclick="document.getElementById('chatbot-panel').classList.add('hidden')">✕</button>
+        </div>
+        <div id="chatbot-messages">
+            <div class="chat-msg bot-msg">
+                <span>👋 Hi! I'm running on <strong>local Llama 3.2</strong> — no internet needed! Ask me anything about
+                    DSA, interview tips, or coding!</span>
+            </div>
+        </div>
+        <div class="chatbot-input-row">
+            <input id="chatbot-input" type="text" placeholder="Ask a coding or HR question..." autocomplete="off" />
+            <button id="chatbot-send">➤</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Force the close button directly 
+        document.getElementById('chatbot-close').addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            document.getElementById('chatbot-panel').classList.add('hidden');
+        });
+
+        // ===== LOCAL OLLAMA CHATBOT =====
+        const BACKEND_URL = "http://localhost:8000/api";
+        const localHistory = [];
+
+        const chatBtn = document.getElementById('chatbot-btn');
+        const chatPanel = document.getElementById('chatbot-panel');
+        const sendBtn = document.getElementById('chatbot-send');
+        const inputEl = document.getElementById('chatbot-input');
+        const messagesEl = document.getElementById('chatbot-messages');
+
+        chatBtn.onclick = () => {
+            chatPanel.classList.toggle('hidden');
+            if (!chatPanel.classList.contains('hidden')) inputEl.focus();
+        };
+
+        function formatText(text) {
+            return text
+                .replace(/```(\w+)?([\s\S]*?)```/g, '<pre><code>$2</code></pre>')
+                .replace(/`([^`]+)`/g, '<code>$1</code>')
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                .replace(/\n/g, '<br>');
+        }
+
+        function appendMessage(text, role) {
+            const div = document.createElement('div');
+            div.className = `chat-msg ${role === 'bot' ? 'bot-msg' : 'user-msg'}`;
+            div.innerHTML = `<span>${formatText(text)}</span>`;
+            messagesEl.appendChild(div);
+            messagesEl.scrollTop = messagesEl.scrollHeight;
+            return div;
+        }
+
+        async function sendMessage() {
+            const text = inputEl.value.trim();
+            if (!text) return;
+            inputEl.value = '';
+            sendBtn.disabled = true;
+            appendMessage(text, 'user');
+            const thinkingDiv = appendMessage('⏳ Thinking...', 'bot');
+
+            try {
+                const res = await fetch(`${BACKEND_URL}/chat`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: text, history: localHistory })
+                });
+                const data = await res.json();
+                if (data.error) throw new Error(data.error);
+                localHistory.push({ role: 'user', content: text });
+                localHistory.push({ role: 'assistant', content: data.reply });
+                thinkingDiv.querySelector('span').innerHTML = formatText(data.reply);
+            } catch (e) {
+                thinkingDiv.querySelector('span').textContent = `❌ Error: ${e.message}`;
+            }
+            sendBtn.disabled = false;
+            inputEl.focus();
+        }
+
+        sendBtn.onclick = sendMessage;
+        inputEl.addEventListener('keydown', e => { if (e.key === 'Enter') sendMessage(); });
+    </script>
+</body>
+
+</html>
